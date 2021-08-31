@@ -142,6 +142,10 @@ where city like 'S%';
 */
 
 -- your query here
+SELECT city, land_area_sq_mi_2016, population_estimate_2018
+FROM cities
+WHERE land_area_sq_mi_2016 > 400
+  OR population_estimate_2018 > 2000000;
 
 \echo ========= Problem 3.9 ====================================================
 \echo
@@ -153,6 +157,18 @@ where city like 'S%';
 */
 
 -- your query here
+SELECT city, land_area_sq_mi_2016, population_estimate_2018
+FROM cities
+WHERE (
+    (
+      land_area_sq_mi_2016 > 400
+      OR population_estimate_2018 > 2000000
+    )
+    AND NOT (
+      land_area_sq_mi_2016 > 400
+      AND population_estimate_2018 > 2000000
+    )
+  );
 
 \echo ========= Problem 3.10 ===================================================
 \echo
@@ -164,6 +180,11 @@ where city like 'S%';
 */
 
 -- your query here
+SELECT city, population_estimate_2018, population_census_2010
+FROM cities
+WHERE (
+    population_estimate_2018 - population_census_2010
+  ) > 200000;
 
 ---- Phase 4: Use a JOIN operation ---------------------------------------------
 -- Retrieve rows from multiple tables joining on a foreign key.
@@ -179,7 +200,9 @@ where city like 'S%';
 */
 
 -- your query here
-
+SELECT name, city
+FROM airports
+INNER JOIN cities ON (airports.city_id = cities.id);
 \echo ========= Problem 4.2 ====================================================
 \echo
 /*
@@ -191,6 +214,10 @@ where city like 'S%';
 */
 
 -- your query here
+SELECT COUNT(*)
+FROM airports
+INNER JOIN cities ON (airports.city_id = cities.id)
+WHERE city = 'New York';
 
 --------------------------------------------------------------------------------
 ---- Bonuses:
